@@ -700,15 +700,16 @@ int obtainMinPathObjective(cTopology& _topo,cRequest* _request,vector<ID>& _path
 
 int processingPath(cVirtTopology& _virTopo,cTopology& _topo,cRequest* _request,path_class _path_class,vector<vector<ID>>& _path,vector<int>& _slot)
 {
-	//cout<<"processingPath"<<endl;
-
 	vector<vector<ID>> multiPath;
 	vector<vector<ID>>::iterator iter_multiPath;
 
 	vector<ID> linkID_vec;
 	vector<ID>::iterator iter_linkID;
 
-	map<double,pair<int,vector<ID>>> applicablePath;
+
+	//This data structure is for fragmentation-aware backup sharing algorithm
+	//In this case, without considering fragmentation, it should be modified
+	//map<double,pair<int,vector<ID>>> applicablePath;
 
 	vector<int> applicableSpectrumSlot;
 
@@ -731,64 +732,21 @@ int processingPath(cVirtTopology& _virTopo,cTopology& _topo,cRequest* _request,p
 		obtainAvailblePathSlot(_topo,_request,*iter_multiPath,_path_class,applicableSpectrumSlot);
 		if(!applicableSpectrumSlot.empty())
 		{
+			_path.push_back(*iter_multiPath);
+			_slot.push_back(*(applicableSpectrumSlot.begin()));
+
+			return 0;
+
 			//calculate the minimum objective for all available slot in each path.
-			obtainMinPathObjective(_topo,_request,*iter_multiPath,_path_class,applicableSpectrumSlot,applicablePath);
+			//In this case, no need to select the one with minimum objective
+			//the first path that can meet the resource allocation requirement can be used to as the working/backup path
+			//obtainMinPathObjective(_topo,_request,*iter_multiPath,_path_class,applicableSpectrumSlot,applicablePath);
 		}
-	}
-
-
-	if (!applicablePath.empty())
-	{
-		_path.push_back(applicablePath.begin()->second.second);
-		_slot.push_back(applicablePath.begin()->second.first);
-
-		//one or more path(s) that has available spectrum has been found
-		//select the one with minimum objective as the working path for current request
-
-		//update request info to add working path info to it
-		//_request->setIsService(true);
-
-		//vector<ID>::iterator tem_iter_nodeID;
-		////_path.clear();
-		//for (tem_iter_nodeID = applicablePath.begin()->second.second.begin();tem_iter_nodeID != applicablePath.begin()->second.second.end();tem_iter_nodeID++)
-		//{
-		//	if (_path_class == WORKINGPATH)
-		//	{
-		//		_request->workingPathNode_vec.push_back(make_pair(*tem_iter_nodeID,&(_topo.phyNode_vec[*tem_iter_nodeID - 1])));
-		//	}
-		//	else
-		//	{
-		//		_request->backupPathNode_vec.push_back(make_pair(*tem_iter_nodeID,&(_topo.phyNode_vec[*tem_iter_nodeID - 1])));
-		//	}
-		//	_path.push_back(*tem_iter_nodeID);
-		//}
-
-		//vector<ID> tem_linkID_vec;
-		//vector<ID>::iterator tem_iter_linkID;
-		//obtainPathLinkID(_topo,applicablePath.begin()->second.second,tem_linkID_vec);
-
-		//for (tem_iter_linkID = tem_linkID_vec.begin();tem_iter_linkID != tem_linkID_vec.end();tem_iter_linkID++)
-		//{
-		//	cLink* plink = &(_topo.phyLink_vec[*tem_iter_linkID - 1]);
-
-		//	if (_path_class == WORKINGPATH)
-		//	{
-		//		_request->workingPathLink_vec.push_back(make_pair(*tem_iter_linkID,plink));
-		//	}
-		//	else
-		//	{
-		//		_request->backupPathLink_vec.push_back(make_pair(*tem_iter_linkID,plink));
-		//	}
-
-
-		//	//spectrum allocation and request info updated
-		//	plink->allocateSpectrum(_request,_path_class,applicablePath.begin()->second.first);	
-		//	plink->updateFragmentation();
-		//}
 	}
 
 	return 0;
 }
+
 int updateRequestPathInfo(cTopology& _topo,cRequest* _request, vector<ID>& _path,path_class _path_class,int _slot)
 {
 	//cout<<"updateRequestPathInfo"<<endl;
