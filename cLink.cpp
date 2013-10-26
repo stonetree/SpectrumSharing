@@ -185,6 +185,11 @@ int cLink::allocateSpectrum(cRequest* _request, path_class _path_state, int _slo
 		}
 		else
 		{
+			//add the following sentence for dedicated protection strategy
+			//in this case, all backup spectrum are seen to be unsharable.
+			//therefore, we should set all the indexes of spectrum usage as being used for each backup path.
+			spectrumAllocationBackupPath[i] = 'U';
+			
 			spectrumAllocation_vec[i].setSharingAvailable(true);
 			spectrumAllocation_vec[i].setSpectrumState(BACKUP);
 		}
