@@ -51,15 +51,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	ofstream outputFile;
 	vector<pair<double,double>>::iterator iter_inputParameter;
 
-	//for (iter_inputParameter = inputParameter.begin();iter_inputParameter != inputParameter.end();iter_inputParameter++)
-	for (resourceDemandMax = 20;resourceDemandMax<=40;resourceDemandMax+=10)
+	for (iter_inputParameter = inputParameter.begin();iter_inputParameter != inputParameter.end();iter_inputParameter++)
+	//for (resourceDemandMax = 20;resourceDemandMax<=40;resourceDemandMax+=10)
 	{
 		
 		//initial input parameter erlang
-		//lambda = iter_inputParameter->first;
-		//mu = iter_inputParameter->second;
-		lambda = 50;
-		mu = 1;
+		lambda = iter_inputParameter->first;
+		mu = iter_inputParameter->second;
+		//lambda = 50;
+		//mu = 1;
 
 		//Initial virtual topology, which includes the nodes and links info as well as the connections info between links//
 		//The virtual topology will be used to find the shortest path for each request.//

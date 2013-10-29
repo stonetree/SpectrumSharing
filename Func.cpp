@@ -11,7 +11,7 @@
 double lambda = 2;
 double mu = 1;
 
-int resourceDemandMax = 20;
+int resourceDemandMax = 10;
 int resourceDemandMin = 1;
 
 extern void generateNodePair(vector<cRequest>& _request_vec,cTopology& _topo);
