@@ -739,7 +739,7 @@ int processingPath(cVirtTopology& _virTopo,cTopology& _topo,cRequest* _request,p
 
 			//calculate the minimum objective for all available slot in each path.
 			//In this case, no need to select the one with minimum objective
-			//the first path that can meet the resource allocation requirement can be used to as the working/backup path
+			//the first path that can meet the resource allocation requirement can be used as the working/backup path
 			//obtainMinPathObjective(_topo,_request,*iter_multiPath,_path_class,applicableSpectrumSlot,applicablePath);
 		}
 	}
