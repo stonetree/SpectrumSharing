@@ -11,7 +11,7 @@
 double lambda = 2;
 double mu = 1;
 
-int resourceDemandMax = 10;
+int resourceDemandMax = 5;
 int resourceDemandMin = 1;
 
 extern void generateNodePair(vector<cRequest>& _request_vec,cTopology& _topo);
@@ -685,7 +685,7 @@ int obtainMinPathObjective(cTopology& _topo,cRequest* _request,vector<ID>& _path
 			spectrumUsed += _topo.phyLink_vec[*iter_linkID - 1].calculateSepctrumUsed(_request,_path_class,*iter_slot);
 		}	
 
-		misAlignmentCount = calculateMisAlignCount_Modified(_topo,_request,_path,*iter_slot);
+		misAlignmentCount = calculateMisAlignCount(_topo,_request,_path,*iter_slot);
 
 		
 		objective = calculateObjective(fragmentationCount,misAlignmentCount,spectrumUsed,unUsedSlot,linkID_vec.size());
