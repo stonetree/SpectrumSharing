@@ -10,9 +10,7 @@
 
 double lambda = 2;
 double mu = 1;
-double t=0;
-double tt=0;
-double ttt=0;
+
 int resourceDemandMax = 5;
 int resourceDemandMin = 1;
 
