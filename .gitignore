@@ -39,3 +39,8 @@ SpretrumSharing.sdf
 *.sdf
 *.sdf
 *.vcxproj
+*.sdf
+*.user
+*.filters
+*.ipch
+
