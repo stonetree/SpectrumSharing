@@ -33,3 +33,10 @@ _ReSharper*/
 *.vcxproj
 *.sdf
 *.opensdf
+*.sdf
+*.sdf
+*.vcxproj
+*.sdf
+*.user
+*.filters
+*.ipch
